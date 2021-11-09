@@ -12,14 +12,10 @@ function App() {
 
   React.useEffect(() => {
     axios
-      .get('http://localhost:3000/db.json')
-      .then(({ data }) => dispatch(setPizzas(data.pizzas)))
+      .get('http://localhost:5000/pizzas')
+      .then(({ data }) => dispatch(setPizzas(data)))
       .catch((error) => console.log(error.message));
-  }, []);
-
-  const showName = (name) => {
-    console.log(name);
-  };
+  }, [dispatch]);
 
   return (
     <div className="App">
@@ -29,7 +25,7 @@ function App() {
         <div className="content">
           <Switch>
             <Route path="/" exact>
-              <Home showName={showName} />
+              <Home />
             </Route>
             <Route path="/cart" exact>
               <Cart />
