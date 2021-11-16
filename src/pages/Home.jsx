@@ -13,11 +13,9 @@ const Home = () => {
   const { category, sortBy } = useSelector(({ filter }) => filter);
   const dispatch = useDispatch();
 
-  console.log(category);
-
   React.useEffect(() => {
-    dispatch(fetchPizzas());
-  }, [category]);
+    dispatch(fetchPizzas(sortBy, category));
+  }, [category, sortBy]);
 
   const onSelectCategory = React.useCallback(
     (index) => {
@@ -32,9 +30,9 @@ const Home = () => {
         <Categories onClickItem={onSelectCategory} itemsCategory={itemsCategory} />
         <SortPopup
           items={[
-            { name: 'популярности', type: 'popular' },
+            { name: 'популярности', type: 'rating' },
             { name: 'цене', type: 'price' },
-            { name: 'алфавиту', type: 'alphabet' },
+            { name: 'алфавиту', type: 'name' },
           ]}
         />
       </div>

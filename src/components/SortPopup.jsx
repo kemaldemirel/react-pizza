@@ -1,16 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setSortBy } from '../redux/actions/filters';
 
 const SortPopup = ({ items }) => {
   const [visiblePopUp, setVisiblePopUp] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(0);
   const labelSort = items[activeItem].name;
   const sortRef = React.useRef();
+  const dispatch = useDispatch();
 
   const toggleVisiblePopUp = () => {
     setVisiblePopUp(!visiblePopUp);
   };
 
-  const onClickActive = (index) => {
+  const onClickActive = (index, type) => {
+    dispatch(setSortBy(type));
     setActiveItem(index);
     setVisiblePopUp(false);
   };
@@ -52,7 +56,7 @@ const SortPopup = ({ items }) => {
               items.map((obj, index) => (
                 <li
                   className={activeItem === index ? 'active' : ''}
-                  onClick={() => onClickActive(index)}
+                  onClick={() => onClickActive(index, obj.type)}
                   key={`${obj.type}_${index}`}>
                   {obj.name}
                 </li>
